@@ -10,6 +10,7 @@ import { ResponsePageable } from '../responsePageable.model';
 export class ClientsService {
 
   apiUrl = 'http://localhost:8080/clientes';
+  apiUrlDelete = 'http://localhost:8080/cliente/';
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':'application/json'
@@ -27,6 +28,15 @@ export class ClientsService {
 
     public postClients(clients: any): Observable<Clients> {
       return this.httpClient.post<any>(this.apiUrl,clients,this.httpOptions)
+    }
+
+    public putClients(clients: any): Observable<Clients> {
+      return this.httpClient.put<any>(this.apiUrl,clients,this.httpOptions)
+    }
+
+    public deleteClient(id: any) {
+      console.log(this.apiUrlDelete+id)
+      return this.httpClient.delete(this.apiUrlDelete+id,this.httpOptions)
     }
 
 }

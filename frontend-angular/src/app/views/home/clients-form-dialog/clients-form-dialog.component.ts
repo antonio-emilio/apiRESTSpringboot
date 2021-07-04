@@ -32,10 +32,13 @@ export class ClientsFormDialogComponent implements OnInit {
     window.location.reload();
   }
 
+
   cancel(): void {
     this.dialogRef.close();
     this.clientForm.reset();
   }
+
+
 
 
 }
