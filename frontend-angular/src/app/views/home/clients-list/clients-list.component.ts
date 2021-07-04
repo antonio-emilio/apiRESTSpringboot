@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { Clients } from 'src/app/shared/clients.model';
 import { ClientsService } from 'src/app/shared/service/clients.service'
 import { ClientsFormDialogComponent } from '../clients-form-dialog/clients-form-dialog.component';
@@ -14,11 +14,11 @@ export class ClientsListComponent implements OnInit {
 
   clientsNow!: Clients[];
   cli: boolean = false;
-  dialog!: MatDialog;
 
   constructor(
     private rest: ClientsService,
     public clientsService: ClientsService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -32,11 +32,25 @@ export class ClientsListComponent implements OnInit {
       this.cli = true;
     });
   }
-  
+
   /*Delete one client*/
   deleteCliente(id: any) {
     this.rest.deleteClient(id).subscribe(result => { });
     window.location.reload();
+  }
+
+  /*Update one client*/
+  updateCliente(id: any, clients: any) {
+    const dialogRef = this.dialog.open(ClientsFormDialogComponent, {
+      minWidth: '400px',
+      data: {
+        identificator: id,
+        insert: 0
+      }
+    });
+
+
+    //this.rest.putClients(id,clients).subscribe(result => { });
   }
 
 }

@@ -16,7 +16,10 @@ export class HomeComponent implements OnInit {
 
   addCliente(): void {
     const dialogRef = this.dialog.open(ClientsFormDialogComponent, {
-      minWidth: '400px'
+      minWidth: '400px',
+      data: {
+        insert: 1
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {

@@ -30,8 +30,9 @@ export class ClientsService {
       return this.httpClient.post<any>(this.apiUrl,clients,this.httpOptions)
     }
 
-    public putClients(clients: any): Observable<Clients> {
-      return this.httpClient.put<any>(this.apiUrl,clients,this.httpOptions)
+    public putClients(id: any, clients: any) {
+      clients.id = id
+      return this.httpClient.put<any>(this.apiUrlDelete+id,clients)
     }
 
     public deleteClient(id: any) {

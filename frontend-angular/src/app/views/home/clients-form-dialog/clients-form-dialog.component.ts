@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ClientsService } from 'src/app/shared/service/clients.service';
 
 @Component({
@@ -16,8 +16,12 @@ export class ClientsFormDialogComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private rest: ClientsService,
-    public dialogRef: MatDialogRef<ClientsFormDialogComponent>
-  ) { }
+    public dialogRef: MatDialogRef<ClientsFormDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+      
+    }
+
+   
 
   ngOnInit(): void {
     this.clientForm = this.fb.group({
@@ -26,7 +30,12 @@ export class ClientsFormDialogComponent implements OnInit {
   }
 
   createCliente(){
-    this.rest.postClients(this.clientForm.value).subscribe(result => {});
+    if (this.data.insert == 0){
+      this.rest.putClients(this.data.identificator,this.clientForm.value).subscribe(result => { });
+    } else {
+      this.rest.postClients(this.clientForm.value).subscribe(result => {});
+      this.data.insert = 1;
+    }
     this.dialogRef.close();
     this.clientForm.reset();
     window.location.reload();

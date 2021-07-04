@@ -54,12 +54,12 @@ public class ClienteController {
 		return clienteRepository.findById(id);
 	}
 	
-	@DeleteMapping("/clientes")
-	public void deletarUm(@RequestBody Cliente cliente) {
-		clienteRepository.delete(cliente);
+	@DeleteMapping("/cliente/{id}")
+	public void deletarUm(@PathVariable(value="id") long id) {
+		clienteRepository.deleteById(id);
 	}
 	
-	@PutMapping("/clientes")
+	@PutMapping("/cliente/{id}")
 	public Cliente atualizarUm(@RequestBody Cliente cliente) {
 		return clienteRepository.save(cliente);
 	}
