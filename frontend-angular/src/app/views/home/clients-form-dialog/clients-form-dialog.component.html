@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Novo cliente</h1>
+
+<div mat-dialog-content>
+  <form class="example-form" [formGroup]="clientForm">
+    <mat-form-field class="example-full-width">
+      <mat-label>Nome do cliente</mat-label>
+      <input matInput formControlName="nome" name="nome">
+    </mat-form-field>
+  </form>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="createCliente()">Cadastrar</button>
+  <button mat-button (click)="cancel()">Cancelar</button>
+</div>
+
