@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,12 +33,7 @@ public class ClienteController {
 
 	@Autowired
 	private ClienteRepository clienteRepository;
-	/*
-	@GetMapping("/clientes")
-	public List<Cliente> listarTodos() {
-		return clienteRepository.findAll();
-	}
-	*/
+
     @GetMapping("/clientes")
     public ResponseEntity<Page<Cliente>> getAllLives(@PageableDefault(page = 0, size = 10, sort = "id") Pageable pageable){
         Page<Cliente> clientPage = clienteRepository.findAll(pageable);
@@ -52,6 +48,11 @@ public class ClienteController {
 	@GetMapping("/cliente/{id}")
 	public Cliente listarUm(@PathVariable(value="id") long id) {
 		return clienteRepository.findById(id);
+	}
+	
+	@GetMapping("/cliente/bobino")
+	public ResponseEntity <List<Cliente>> whereIsBobino() {
+		return new ResponseEntity<>(clienteRepository.getTheUserBobino(), HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/cliente/{id}")
